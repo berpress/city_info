@@ -1,0 +1,13 @@
+on: push
+
+jobs:
+  check-fields:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for files with required fields
+        run: |
+          find . -type f \( -path './README*' -prune -o -exec grep -q '^\s*name\s*:' {} \; -print -o -exec grep -q '^\s*age\s*:' {} \; -print \)
+        if: ${{ success() }}
+
+
